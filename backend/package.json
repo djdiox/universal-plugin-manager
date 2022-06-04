@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Many Software has them, but finding them are complicated. Not anymore! Based on the biggest databases for plugins and many other platforms around plugins for well known sofware!",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.98",
+    "quicktype": "^15.0.261"
+  },
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,8 +26,12 @@
   "author": "Markus Wagner (djdiox)",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.100.0",
+    "@aws-sdk/client-s3": "^3.100.0",
+    "aws-sdk": "^2.1148.0",
     "express": "^4.18.1",
     "fetch-to-curl": "^0.5.2",
+    "global": "^4.4.0",
     "lodash": "^4.17.21",
     "puppeteer": "^14.1.1"
   }
