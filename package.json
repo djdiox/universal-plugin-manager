@@ -1,0 +1,23 @@
+{
+  "name": "plugin-manager",
+  "version": "1.0.0",
+  "description": "This is the complete software (devided into server/client. Can be installed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "forever"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djdiox/plugin-manager.git"
+  },
+  "author": "Markus Wagner (djdiox)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djdiox/plugin-manager/issues"
+  },
+  "homepage": "https://github.com/djdiox/plugin-manager#readme",
+  "devDependencies": {
+    "forever": "^4.0.3"
+  }
+}
