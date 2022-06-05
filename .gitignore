@@ -11,3 +11,4 @@ thumbs.db
 !.gitkeep
 .electron-vue/
 .env
+*protected.json

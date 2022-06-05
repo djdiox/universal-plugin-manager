@@ -1,5 +1,5 @@
 import { CustomLogger } from '../common/logger';
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
+// import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
 import { Logger } from 'log4js';
 enum DbActionMode {
     insert = 0,
@@ -55,7 +55,6 @@ export class DbHandler implements IDataSourceAdapter {
         }
     }
     async upsert(data: any, id: any) {
-
         this.logger.log('Creating or Updating Database entry', { data, id });
         try {
 

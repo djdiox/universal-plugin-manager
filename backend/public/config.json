@@ -22,7 +22,7 @@
         {
             "name": "1Password",
             "website": "http://www.1password.one/",
-            "role": "security",
+            "role": "passwordmanager",
             "api_kind": "cli",
             "path": {
                 "executable": "C:\\Users\\marku\\AppData\\Local\\1Password\\app\\8\\1Password.exe"
