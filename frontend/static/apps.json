@@ -1,0 +1,29 @@
+{
+    "operatingSystem": "Windows 11",
+    "packageManager": {
+        "name":  "chocolatey",
+        "path": "C:\\ProgramData\\chocolatey\\bin\\choco.exe",
+        "cmd": "choco",
+        "repository":{
+            "url":  "https://community.chocolatey.org/packages",
+            "query": "https://community.chocolatey.org/packages?q="
+        }
+    },
+    "apps": [
+        {
+            "name": "FluentSearch",
+            "path": "F:\\00_Portable\\fluent-search-portable\\FluentSearch.exe",
+            "cli":"",
+            "info":"https://fluentsearch.net/posts/c-plugins-developer-guide"
+        },
+        {
+            "name": "1Password",
+            "path": "C:\\Users\\marku\\AppData\\Local\\1Password\\app\\8\\1Password.exe",
+            "cli": {
+                "name": "1password-cli",
+                "source": "chocolatey",
+                ""
+            }
+        }
+    ]
+}

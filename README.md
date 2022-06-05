@@ -27,7 +27,7 @@ cd frontend &6 npm run serve
 [using the boilerplate from SimulatedGREG](https://github.com/SimulatedGREG/electron-vue)
 ``` sh
 # Initialize 
-vue init simulatedgreg/electron-vue my-project
+vue init simulatedgreg/electron-vue my-project/U
 
 # Install dependencies and run your app
 cd frontend
