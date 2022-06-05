@@ -22,7 +22,11 @@
             "cli": {
                 "name": "1password-cli",
                 "source": "chocolatey",
-                ""
+                "commands": {
+                    "list-items": "op item ls --format json",
+                    "list-vaults": " op vault list --format=json",
+                    "get-item":"op item get {id} --format=json"
+                }
             }
         }
     ]
