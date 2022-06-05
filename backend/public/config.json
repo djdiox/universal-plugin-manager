@@ -1,0 +1,83 @@
+{
+    "operatingSystem": "Windows 11",
+    "packageManager": {
+        "name": "chocolatey",
+        "path": "C:\\ProgramData\\chocolatey\\bin\\choco.exe",
+        "cmd": "choco",
+        "repository": {
+            "url": "https://community.chocolatey.org/packages",
+            "query": "https://community.chocolatey.org/packages?q="
+        }
+    },
+    "apps": [
+        {
+            "name": "FluentSearch",
+            "website": "http://www.fluentsearch.net/",
+            "role": "launcher",
+            "api_kind": "cli",
+            "path": "F:\\00_Portable\\fluent-search-portable\\FluentSearch.exe",
+            "cli": "",
+            "info": "https://fluentsearch.net/posts/c-plugins-developer-guide"
+        },
+        {
+            "name": "1Password",
+            "website": "http://www.1password.one/",
+            "role": "security",
+            "api_kind": "cli",
+            "path": {
+                "executable": "C:\\Users\\marku\\AppData\\Local\\1Password\\app\\8\\1Password.exe"
+            },
+            "cli": {
+                "name": "1password-cli",
+                "source": "chocolatey",
+                "commands": {
+                    "list-items": "op item ls --format json",
+                    "list-vaults": " op vault list --format=json",
+                    "get-item": "op item get {id} --format=json"
+                }
+            }
+        },
+        {
+            "name": "Wox",
+            "website": "http://www.wox.one/",
+            "role": "launcher",
+            "path": {
+                "plugins": "F:\\00_Portable\\Wox\\app-1.4.1196\\Plugins",
+                "executable": "F:\\00_Portable\\Wox\\app-1.4.1196\\Wox.exe"
+            },
+            "api_kind": "rest",
+            "plugin_page": "http://www.wox.one/plugin",
+            "request": {
+                "api_urls": [
+                    "http://api.wox.one/plugin/?page=1&page_size=100",
+                    "http://api.wox.one/plugin/?page=2&page_size=100",
+                    "http://api.wox.one/plugin/?page=3&page_size=100",
+                    "http://api.wox.one/plugin/?page=4&page_size=100"
+                ],
+                "params:": {
+                    "page_size": 100,
+                    "page": 1
+                },
+                "headers": {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+                    "Accept": "application/json, text/plain, */*",
+                    "Accept-Language": "de,en-US;q=0.7,en;q=0.3",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Origin": "http://www.wox.one",
+                    "Referer": "http://www.wox.one/",
+                    "Cookie": "csrftoken=MtzdRVXb5mJ7THGX3jhhu9NyKA8LOof4; sessionid=klifrcbs1ic2s5b28hl93r3jsnzk1hp1"
+                }
+            },
+            "file": "./data/Wox/data.json"
+        },
+        {
+            "name": "Mozilla Firefox",
+            "website": "http://www.fluentsearch.net/",
+            "role": "launcher",
+            "api_kind": "cli",
+            "path": "F:\\00_Portable\\fluent-search-portable\\FluentSearch.exe",
+            "cli": "",
+            "info": "https://fluentsearch.net/posts/c-plugins-developer-guide"
+        }
+    ]
+}

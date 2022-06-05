@@ -1,6 +1,7 @@
 [
   {
     "name": "Wox",
+    "api_kind": "rest",
     "website": "http://www.wox.one/",
     "plugin_page": "http://www.wox.one/plugin",
     "request": {

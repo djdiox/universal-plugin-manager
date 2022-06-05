@@ -1,4 +1,4 @@
-
+import {DynamoDB} from 'aws-sdk'
 
 export class DbHandler {
     private dynamoDB: DynamoDB;
@@ -29,7 +29,7 @@ export class DbHandler {
 
 const controller = {}
 module.exports = {
-    init(dbHandler) {
+    init(dbHandler : DbHandler) {
 
     }
 }

@@ -5,7 +5,9 @@
   "main": "index.js",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.98",
-    "quicktype": "^15.0.261"
+    "dotenv": "^16.0.1",
+    "quicktype": "^15.0.261",
+    "typescript": "^4.7.3"
   },
   "type": "module",
   "scripts": {
@@ -33,6 +35,7 @@
     "fetch-to-curl": "^0.5.2",
     "global": "^4.4.0",
     "lodash": "^4.17.21",
-    "puppeteer": "^14.1.1"
+    "puppeteer": "^14.1.1",
+    "ts-node": "^10.8.1"
   }
 }
