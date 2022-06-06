@@ -1,22 +1,16 @@
 {
   "name": "plugin-manager",
   "version": "1.0.0",
-  "description": "Many Software has them, but finding them are complicated. Not anymore! Based on the biggest databases for plugins and many other platforms around plugins for well known sofware!",
+  "description": "This is the complete software (devided into server/client. Can be installed",
   "main": "index.js",
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.98",
-    "@types/node": "^17.0.40",
-    "dotenv": "^16.0.1",
-    "quicktype": "^15.0.261",
-    "typescript": "^4.7.3"
-  },
-  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "forever",
+    "generate:types": "quicktype .\\public\\config.json >"
   },
   "repository": {
     "type": "git",
-    "url": "test"
+    "url": "git+https://github.com/djdiox/plugin-manager.git"
   },
   "keywords": [
     "plugins",
@@ -26,18 +20,32 @@
     "software",
     "helper"
   ],
-  "author": "Markus Wagner (djdiox)",
-  "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.100.0",
     "@aws-sdk/client-s3": "^3.100.0",
     "aws-sdk": "^2.1148.0",
-    "axios": "^0.27.2",
-    "express": "^4.18.1",
     "fetch-to-curl": "^0.5.2",
     "global": "^4.4.0",
     "lodash": "^4.17.21",
+    "log4js": "^6.5.2",
+    "nodemon": "^2.0.16",
     "puppeteer": "^14.1.1",
     "ts-node": "^10.8.1"
+  },
+  "author": "Markus Wagner (djdiox)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djdiox/plugin-manager/issues"
+  },
+  "homepage": "https://github.com/djdiox/plugin-manager#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.98",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/express": "^4.17.13",
+    "@types/nodemon": "^1.19.1",
+    "dotenv": "^16.0.1",
+    "forever": "^4.0.3",
+    "quicktype": "^15.0.261",
+    "typescript": "^4.7.3"
   }
 }

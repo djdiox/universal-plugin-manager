@@ -3,6 +3,7 @@
     "packageManagers": [
         {
             "name": "chocolatey",
+            "platform": "win",
             "website": "https://chocolatey.org",
             "registryUrl": "https://community.chocolatey.org/packages/",
             "path": "C:\\ProgramData\\chocolatey\\bin\\choco.exe",
@@ -14,11 +15,17 @@
                 "base": "choco",
                 "install": "choco install",
                 "json": {
-                    "info": "s info --json --all",
+                    "info": "brew info --json --all",
                     "installed": "brew info --json=v1 --installed",
                     "packages": "brew info --json=v1 --all | jq \"map(select(.installed != []))\""
                 }
             }
+        },
+        {
+            "name": "winget",
+            "website": "https://docs.brew.sh/",
+            "platformwing": "win",
+            "cmds": {}
         },
         {
             "name": "homebrew",
