@@ -16,12 +16,11 @@ function execute(command: string) : Promise<string> {
 export default async () => {
     // const config = JSON.parse(fs.readFileSync('../public/config.json', 'utf-8'));
     const passwordApp = config.apps.find((e: any) => e.name.toLowerCase() === '1password')
-    passwordApp?.cli
-    let result = await execute(passwordApp?.cli?.commands['list-items'] || '');
+    let result = await execute(passwordApp?.cmds?.json['list-items'] || '');
     fs.writeFileSync('../data/1password/items.json', result);
     console.log(JSON.parse(result));
     config.packageManagers.forEach(packageManager => {
-        packageManager.cmd.
+        packageManager.cmds 
     });
     //   const result = Buffer.from(buffer)
 };

@@ -6,26 +6,43 @@
             "website": "https://chocolatey.org",
             "registryUrl": "https://community.chocolatey.org/packages/",
             "path": "C:\\ProgramData\\chocolatey\\bin\\choco.exe",
-            "cmd": "choco",
             "repository": {
                 "url": "https://community.chocolatey.org/packages",
                 "query": "https://community.chocolatey.org/packages?q="
             },
-            "cmds":{
-                ""
-            } 
+            "cmds": {
+                "base": "choco",
+                "install": "choco install",
+                "json": {
+                    "info": "s info --json --all",
+                    "installed": "brew info --json=v1 --installed",
+                    "packages": "brew info --json=v1 --all | jq \"map(select(.installed != []))\""
+                }
+            }
         },
         {
             "name": "homebrew",
             "website": "https://docs.brew.sh/",
             "platform": "mac",
             "installAppCmd": "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"",
+            "request": {
+                "api_urls": {
+                    "formulae_list": "https://formulae.brew.sh/api/versions-formulae.json",
+                    "casks": "https://formulae.brew.sh/api/versions-casks.json",
+                    "formulae_detail": "https://formulae.brew.sh/api/formula/${FORMULA}.json",
+                    "cask_detail": "https://formulae.brew.sh/api/cask/${FORMULA}.json",
+                    "metadata": "https://formulae.brew.sh/api/bottle/${FORMULA}.json",
+                    "analytics": "https://formulae.brew.sh/api/analytics/${CATEGORY}/homebrew-core/${DAYS}.json"
+                }
+            },
             "cmds": {
+                "base": "brew",
                 "install": "brew install",
                 "update": "brew update",
                 "delete": "brew uninstall",
                 "list": "brew list",
                 "json": {
+                    "info": "brew info --json --all",
                     "installed": "brew info --json=v1 --installed",
                     "packages": "brew info --json=v1 --all | jq \"map(select(.installed != []))\""
                 }
@@ -38,14 +55,15 @@
             "website": "http://www.1password.one/",
             "role": "passwordmanager",
             "api_kind": "cli",
-            "file": "./data/Wox/data.json",
+            "file": "./data/1password/data.json",
             "path": {
                 "executable": "C:\\Users\\marku\\AppData\\Local\\1Password\\app\\8\\1Password.exe"
             },
-            "cli": {
+            "source": "chocolatey",
+            "cmds": {
                 "name": "1password-cli",
-                "source": "chocolatey",
-                "commands": {
+                "base": "po",
+                "json": {
                     "list-items": "op item ls --format json",
                     "list-vaults": "op vault list --format=json",
                     "get-item": "op item get {id} --format=json"
@@ -72,12 +90,9 @@
             "api_kind": "rest",
             "plugin_page": "http://www.wox.one/plugin",
             "request": {
-                "api_urls": [
-                    "http://api.wox.one/plugin/?page=1&page_size=100",
-                    "http://api.wox.one/plugin/?page=2&page_size=100",
-                    "http://api.wox.one/plugin/?page=3&page_size=100",
-                    "http://api.wox.one/plugin/?page=4&page_size=100"
-                ],
+                "api_urls": {
+                    "plugin_database": "http://api.wox.one/plugin/?page={page}&page_size=100"
+                },
                 "params:": {
                     "page_size": 100,
                     "page": 1
