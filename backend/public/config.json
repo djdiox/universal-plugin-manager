@@ -1,29 +1,44 @@
 {
     "operatingSystem": "Windows 11",
-    "packageManager": {
-        "name": "chocolatey",
-        "path": "C:\\ProgramData\\chocolatey\\bin\\choco.exe",
-        "cmd": "choco",
-        "repository": {
-            "url": "https://community.chocolatey.org/packages",
-            "query": "https://community.chocolatey.org/packages?q="
-        }
-    },
-    "apps": [
+    "packageManagers": [
         {
-            "name": "FluentSearch",
-            "website": "http://www.fluentsearch.net/",
-            "role": "launcher",
-            "api_kind": "cli",
-            "path": "F:\\00_Portable\\fluent-search-portable\\FluentSearch.exe",
-            "cli": "",
-            "info": "https://fluentsearch.net/posts/c-plugins-developer-guide"
+            "name": "chocolatey",
+            "website": "https://chocolatey.org",
+            "registryUrl": "https://community.chocolatey.org/packages/",
+            "path": "C:\\ProgramData\\chocolatey\\bin\\choco.exe",
+            "cmd": "choco",
+            "repository": {
+                "url": "https://community.chocolatey.org/packages",
+                "query": "https://community.chocolatey.org/packages?q="
+            },
+            "cmds":{
+                ""
+            } 
         },
+        {
+            "name": "homebrew",
+            "website": "https://docs.brew.sh/",
+            "platform": "mac",
+            "installAppCmd": "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"",
+            "cmds": {
+                "install": "brew install",
+                "update": "brew update",
+                "delete": "brew uninstall",
+                "list": "brew list",
+                "json": {
+                    "installed": "brew info --json=v1 --installed",
+                    "packages": "brew info --json=v1 --all | jq \"map(select(.installed != []))\""
+                }
+            }
+        }
+    ],
+    "apps": [
         {
             "name": "1Password",
             "website": "http://www.1password.one/",
             "role": "passwordmanager",
             "api_kind": "cli",
+            "file": "./data/Wox/data.json",
             "path": {
                 "executable": "C:\\Users\\marku\\AppData\\Local\\1Password\\app\\8\\1Password.exe"
             },
@@ -32,10 +47,19 @@
                 "source": "chocolatey",
                 "commands": {
                     "list-items": "op item ls --format json",
-                    "list-vaults": " op vault list --format=json",
+                    "list-vaults": "op vault list --format=json",
                     "get-item": "op item get {id} --format=json"
                 }
             }
+        },
+        {
+            "name": "FluentSearch",
+            "website": "http://www.fluentsearch.net/",
+            "role": "launcher",
+            "api_kind": "cli",
+            "path": "F:\\00_Portable\\fluent-search-portable\\FluentSearch.exe",
+            "info": "https://fluentsearch.net/posts/c-plugins-developer-guide",
+            "file": "./data/Wox/data.json"
         },
         {
             "name": "Wox",
@@ -76,7 +100,6 @@
             "role": "launcher",
             "api_kind": "cli",
             "path": "F:\\00_Portable\\fluent-search-portable\\FluentSearch.exe",
-            "cli": "",
             "info": "https://fluentsearch.net/posts/c-plugins-developer-guide"
         }
     ]
