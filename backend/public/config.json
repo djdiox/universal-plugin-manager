@@ -62,7 +62,7 @@
             "source": "chocolatey",
             "cmds": {
                 "name": "1password-cli",
-                "base": "po",
+                "base": "op",
                 "json": {
                     "list-items": "op item ls --format json",
                     "list-vaults": "op vault list --format=json",

@@ -8,6 +8,7 @@
         "args": ["${relativeFile}"],
         "runtimeArgs": ["-r", "ts-node/register"],
         "cwd": "${workspaceRoot}",
+        
         "internalConsoleOptions": "openOnSessionStart"
       }
     ]
