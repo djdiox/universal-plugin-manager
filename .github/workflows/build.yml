@@ -12,7 +12,15 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v1
-
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install # will run `yarn install` command
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: build # will run `yarn build` command
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: test # will run `yarn test` command
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
