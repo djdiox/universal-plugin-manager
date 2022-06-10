@@ -1,11 +1,10 @@
-import log4js from 'log4js'
 import fs from 'fs'
+import log4js from 'log4js'
 export class CustomLogger {
   // private logger: log4js.Logger;
   public static Loglevel = log4js.levels;
 
   public static Logger: log4js.Logger;
-
 
   // public static get Logger() { return this.logger; }
   constructor(className: string) {
@@ -18,10 +17,6 @@ export class CustomLogger {
   }
 
   static init(currentContext: string): log4js.Logger {
-    // if(typeof CustomLogger.logger !== 'undefined') {
-    //   CustomLogger.logger.log('Logger is already initialized', currentContext)
-    //   return CustomLogger.logger;
-    // }
     const json = JSON.parse(fs.readFileSync('../log4js.json', 'utf-8'));
     console.log('Init log4js', json)
     CustomLogger.Logger = log4js.getLogger(currentContext);

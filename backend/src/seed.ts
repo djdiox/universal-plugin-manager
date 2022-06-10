@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { exec } from 'child_process';
+import { exec, execSync } from 'child_process';
 import { CustomLogger } from './common/logger';
 let config = JSON.parse(fs.readFileSync('../public/config.json', 'utf8'))
 

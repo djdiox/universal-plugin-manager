@@ -19,7 +19,10 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "test": "npm run unit && npm run e2e",
     "unit": "karma start test/unit/karma.conf.js",
-    "postinstall": "npm run lint:fix"
+    "postinstall": "npm run lint:fix",
+    "build:github": "cross-env NODE_ENV=production node .electron-vue/build.js && electron-builder",
+    "deploy": "cross-env NOTARIZE=true NODE_ENV=production electron-builder --publish always",
+    "rebuild": "./node_modules/.bin/electron-rebuild"
   },
   "build": {
     "productName": "plugin-manager-frontend",

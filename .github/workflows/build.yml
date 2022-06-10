@@ -1,0 +1,59 @@
+name: Build/release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    defaults:
+      run:
+        working-directory: ./frontend
+    runs-on: ${{ "{{ matrix.os" }} }}
+
+    strategy:
+      matrix:
+        # TODO: Add linux and windows to the process
+        os: [macos-latest] #, ubuntu-latest, windows-latest]
+
+    steps:
+      # This gives your action access to the `aws` cli. Every action that
+      # follows will be able  to use it
+      - uses: chrislennon/action-aws-cli@v1.1
+
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 13.6
+
+      # Import Apple API key for app notarization on macOS
+      - name: Prepare for app notarization
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          mkdir -p ~/private_keys/
+          echo '${{ "{{ secrets.api_key" }} }}' > ~/private_keys/AuthKey_${{ "{{ secrets.api_key_id" }} }}.p8          
+
+      - name: Install yarn packages
+        run: yarn install
+
+      - name: Rebuild yarn packages
+        run: yarn rebuild
+
+      - name: Package & Deploy
+        env:
+          # macOS Code signing certificates
+          CSC_LINK: ${{ "{{ secrets.CSC_LINK" }} }}
+          CSC_KEY_PASSWORD: ${{ "{{ secrets.CSC_KEY_PASSWORD" }} }}
+
+          # macOS notarization API key
+          appleId: ${{ "{{ secrets.appleId" }} }}
+          appleIdPassword: ${{ "{{ secrets.appleIdPassword" }} }}
+
+          # AWS Credentials
+          AWS_ACCESS_KEY_ID: ${{ "{{ secrets.AWS_ACCESS_KEY_ID" }} }}
+          AWS_SECRET_ACCESS_KEY: ${{ "{{ secrets.AWS_SECRET_ACCESS_KEY" }} }}
+        run: yarn build:github && yarn deploy
