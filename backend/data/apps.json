@@ -26,5 +26,39 @@
       }
     },
     "file": "./data/Wox/data.json"
+  },
+  {
+    "name": "Alfred",
+    "api_kind": "rest",
+    "website": "http://www.wox.one/",
+    "plugin_page": "http://www.wox.one/plugin",
+    "packageManagers": [
+        {
+          "name":"Packal",
+          "website": "http://www.packal.org/"
+        }
+    ],
+    "request": {
+      "api_urls": [
+        "http://api.wox.one/plugin/?page=1&page_size=100",
+        "http://api.wox.one/plugin/?page=2&page_size=100",
+        "http://api.wox.one/plugin/?page=3&page_size=100",
+        "http://api.wox.one/plugin/?page=4&page_size=100"
+      ],
+      "params:": {
+        "page_size": 100,
+        "page": 1
+      },
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "de,en-US;q=0.7,en;q=0.3",
+        "Accept-Encoding": "gzip, deflate",
+        "Origin": "http://www.wox.one",
+        "Referer": "http://www.wox.one/",
+        "Cookie": "csrftoken=MtzdRVXb5mJ7THGX3jhhu9NyKA8LOof4; sessionid=klifrcbs1ic2s5b28hl93r3jsnzk1hp1"
+      }
+    },
+    "file": "./data/Wox/data.json"
   }
 ]

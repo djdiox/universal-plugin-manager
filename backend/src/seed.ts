@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { exec } from 'child_process';
+import { exec, execSync } from 'child_process';
 import config from '../public/config.json';
 import { CustomLogger } from './common/logger';
 import axios from 'axios';
@@ -24,14 +24,14 @@ export default async () => {
     const passwordApp = config.apps.find((e: any) => e.name.toLowerCase() === '1password')
     let result = await execute(passwordApp?.cmds?.json['list-items'] || '');
     fs.writeFileSync('../data/1password/items.json', result);
-    const getItem = passwordApp?.cmds?.json['get-item'];
-    execute('get-item', getItem)
+    passwordApp?.cmds?.json['get-item'];
+    const getItem = await execute(passwordApp?.cmds?.json?['list-vaults']);
     // const allItems = await axios.get(url, {
         
     // })
-    console.log(allItems);
+    // const q: any = packageManager?.repository?.query; 
     config.packageManagers.map(packageManager => {
-        logger.info(`${packageManager.name} ${packageManager?.cmds?.json?.info`)
+        logger.info(`${packageManager.name} hast du auch Ungr?`)
     });
 
     //   const result = Buffer.from(buffer)
