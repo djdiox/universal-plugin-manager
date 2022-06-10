@@ -3,11 +3,12 @@ on: push
 jobs:
   release:
     runs-on: ${{ matrix.os }}
-
+    defaults:
+      run:
+        working-directory: ./frontend
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v1
