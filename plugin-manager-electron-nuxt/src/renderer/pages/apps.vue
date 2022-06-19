@@ -12,7 +12,9 @@
 <script>
 import fs from 'fs'
 import path from 'path'
-import { shell, dialog } from 'electron'
+import { platform } from 'os'
+import electron, { ipcRenderer } from 'electron'
+// const { shell, dialog } = require('electron')
 export default {
   name: 'IndexPage',
   data () {
@@ -32,7 +34,16 @@ export default {
         this.showFolderWin32()
         break
       default:
-        dialog.showErrorBox('Unsupported platform', process.platform + ' is not supported yet')
+        const notify = new Notification('Not Supported', {
+          body: process.platform + ' is not supported'
+        })
+        console.log(notify)
+        // ipcRenderer.invoke('showDialog', 'message')
+        // dialog.showOpenDialogSync(BrowserWindow.getFocusedWindow(), {
+        //   title: 'Unsupported platform',
+        //   message: process.platform + ' is not supported yet',
+        //   type: 'error'
+        // })
         break
       }
     },
@@ -71,7 +82,7 @@ export default {
           }
           if (fullPath.endsWith('lnk')) {
             try {
-              res.attributes = shell.readShortcutLink(fullPath)
+              res.attributes = electron.shell.readShortcutLink(fullPath)
               res.isLink = true
             } catch (error) {
               console.log('Can not read from ' + fullPath, error)
