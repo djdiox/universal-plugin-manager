@@ -3,13 +3,16 @@
     <h1>Test</h1>
     <input type="file" webkitdirectory directory multiple @change="onFileChange">
     <v-btn @click.prevent="showFolder()">Show Path</v-btn>
+    <p v-for="item in folder" :key="item.path" @click="openURL(item.path)">
+      {{ item.name }}
+    </p>
   </v-container>
 </template>
 
 <script>
 import fs from 'fs'
-import path from 'path';
-import { shell } from 'electron'
+import path from 'path'
+import { shell, dialog } from 'electron'
 export default {
   name: 'IndexPage',
   data () {
@@ -23,6 +26,16 @@ export default {
     this.showFolder()
   },
   methods: {
+    async showFolder () {
+      switch (process.platform) {
+      case 'win32':
+        this.showFolderWin32()
+        break
+      default:
+        dialog.showErrorBox('Unsupported platform', process.platform + ' is not supported yet')
+        break
+      }
+    },
     openURL (url) {
       window.open(url)
     },
@@ -34,7 +47,7 @@ export default {
         console(this.folder)
       }
     },
-    async showFolder () {
+    async showFolderWin32 () {
       // const result = await shell.openPath(folder)
       const dir = fs
         .readdirSync(this.path)
@@ -68,7 +81,7 @@ export default {
           return res
         })
       // const res = await walk(this.folder)
-
+      this.folder = dir
       console.log(dir)
     }
   }
