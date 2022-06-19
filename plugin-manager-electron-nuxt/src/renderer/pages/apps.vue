@@ -2,19 +2,25 @@
   <v-container fluid>
     <h1>Test</h1>
     <input type="file" webkitdirectory directory multiple @change="onFileChange">
-    <button @click.prevent="showFolder(folder)">Show Path</button>
+    <v-btn @click.prevent="showFolder()">Show Path</v-btn>
   </v-container>
 </template>
 
-<script >
+<script>
+import fs from 'fs'
+import path from 'path';
 import { shell } from 'electron'
 export default {
   name: 'IndexPage',
   data () {
     return {
       externalContent: '',
+      path: 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs',
       folder: []
     }
+  },
+  mounted () {
+    this.showFolder()
   },
   methods: {
     openURL (url) {
@@ -29,8 +35,41 @@ export default {
       }
     },
     async showFolder () {
-      const result = await shell.openPath(folder)
-      console.log(result)
+      // const result = await shell.openPath(folder)
+      const dir = fs
+        .readdirSync(this.path)
+        .flatMap(file => {
+          const currentPath = this.path + '\\' + file
+          if (fs.statSync(currentPath).isDirectory()) {
+            return fs.readdirSync(currentPath).map(otherFile => {
+              return currentPath + '\\' + otherFile
+            })
+          }
+          return this.path + '\\' + file
+        })
+        .map(fullPath => {
+          const fileName = path.basename(fullPath)
+          const res = {
+            path: fullPath,
+            isLink: false,
+            attributes: null,
+            fileName,
+            name: fileName.split('.')[0]
+          }
+          if (fullPath.endsWith('lnk')) {
+            try {
+              res.attributes = shell.readShortcutLink(fullPath)
+              res.isLink = true
+            } catch (error) {
+              console.log('Can not read from ' + fullPath, error)
+              // console.error('Cannot read shortcut')
+            }
+          }
+          return res
+        })
+      // const res = await walk(this.folder)
+
+      console.log(dir)
     }
   }
 }
