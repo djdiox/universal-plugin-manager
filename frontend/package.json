@@ -58,6 +58,21 @@
       "icon": "build/icons"
     }
   },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "djdiox",
+              "name": "universal-plugin-manager"
+            }
+          }
+        }
+      ]
+    }
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.16",
