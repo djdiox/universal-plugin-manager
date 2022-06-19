@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "djdiox <djdiox@yahoo.com>",
   "description": "Many Software has them, but finding them are complicated. Not anymore! Based on the biggest databases for plugins and many other platforms around plugins for well known sofware!",
-  "license": null,
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -74,6 +74,7 @@
     }
   },
   "dependencies": {
+    "1password": "^0.4.0",
     "axios": "^0.18.0",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
