@@ -25,7 +25,7 @@
         "Cookie": "csrftoken=MtzdRVXb5mJ7THGX3jhhu9NyKA8LOof4; sessionid=klifrcbs1ic2s5b28hl93r3jsnzk1hp1"
       }
     },
-    "file": "./data/Wox/data.json"
+    "file": "./data/package-manager/wox/data.json"
   },
   {
     "name": "Alfred",
@@ -59,6 +59,6 @@
         "Cookie": "csrftoken=MtzdRVXb5mJ7THGX3jhhu9NyKA8LOof4; sessionid=klifrcbs1ic2s5b28hl93r3jsnzk1hp1"
       }
     },
-    "file": "./data/Wox/data.json"
+    "file": "./data/alfred/data.json"
   }
 ]
