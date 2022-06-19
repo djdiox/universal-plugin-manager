@@ -11,7 +11,7 @@
       </div>
       <div>
         <nuxt-link
-          to="/other"
+          to="/apps"
           exact
         >
           Next page
