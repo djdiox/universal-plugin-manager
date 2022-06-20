@@ -1,11 +1,19 @@
 <template>
   <v-container fluid>
-    <h1>Test</h1>
-    <input type="file" webkitdirectory directory multiple @change="onFileChange">
-    <v-btn @click.prevent="showFolder()">Show Path</v-btn>
-    <p v-for="item in folder" :key="item.path" @click="openURL(item.path)">
+    <h1>Installed Applications</h1>
+    <!-- <input type="file" webkitdirectory directory multiple @change="onFileChange"> -->
+    <!-- <v-btn @click.prevent="showFolder()">Show Path</v-btn> -->
+
+    <!-- <p v-for="item in folder" :key="item.path" @click="openURL(item.path)">
       {{ item.name }}
-    </p>
+    </p> -->
+    <!-- <v-data-table :headers="headers" :items="folder" :items-per-page="5" class="elevation-1" /> -->
+    <v-card>
+      <v-card-title>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details />
+      </v-card-title>
+      <v-data-table :headers="headers" :items="folder" :search="search" @click:row="handleClick" />
+    </v-card>
   </v-container>
 </template>
 
@@ -13,20 +21,33 @@
 import fs from 'fs'
 import path from 'path'
 import electron from 'electron'
+import * as uuid from 'uuid'
 // const { shell, dialog } = require('electron')
+// { path: fullPath, isLink: true, attributes: stats, fileName, name: fileName.split('.')[0] }
+
 export default {
   name: 'IndexPage',
   data () {
     return {
       externalContent: '',
+      search: '',
       path: '',
-      folder: []
+      folder: [],
+      headers: [
+        { text: 'Name', value: 'name' },
+        { text: 'path', value: 'path' },
+        { text: 'isLink', value: 'isLink' }
+      ]
     }
   },
   mounted () {
     this.showFolder()
   },
   methods: {
+    handleClick (item) {
+      console.log(item)
+      this.$router.push({ path: '/apps/' + item.id })
+    },
     async showFolder () {
       switch (process.platform) {
       case 'win32':
@@ -74,7 +95,7 @@ export default {
           //     return currentPath + '/' + otherFile
           //   })
           // }
-          return this.path + '/' + file
+          return this.path + file
         })
         .map(fullPath => {
           const fileName = path.basename(fullPath)
@@ -82,12 +103,15 @@ export default {
           const res = {
             path: fullPath,
             isLink: true,
+            id: uuid.v4(),
             attributes: stats,
             fileName,
             name: fileName.split('.')[0]
           }
           return res
         })
+        .filter(app => app.fileName.endsWith('.app'))
+
       // const res = await walk(this.folder)
       this.folder = dir
       console.log(dir)
@@ -110,6 +134,7 @@ export default {
         const fileName = path.basename(fullPath)
         const res = {
           path: fullPath,
+          id: uuid.v4(),
           isLink: false,
           attributes: null,
           fileName,
