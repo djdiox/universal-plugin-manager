@@ -1,0 +1,17 @@
+[
+    {
+        "name": "homebrew",
+        "website": "https://docs.brew.sh/",
+        "platform": "mac",
+        "cmds":{
+            "install": "brew install",
+            "update": "brew update",
+            "delete": "brew uninstall",
+            "list": "brew list", 
+            "json": {
+                "installed": "brew info --json=v1 --installed",
+                "packages": "brew info --json=v1 --all | jq \"map(select(.installed != []))\""
+            }
+        }
+    }
+]
