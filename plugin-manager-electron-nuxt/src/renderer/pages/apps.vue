@@ -12,15 +12,14 @@
 <script>
 import fs from 'fs'
 import path from 'path'
-import { platform } from 'os'
-import electron, { ipcRenderer } from 'electron'
+import electron from 'electron'
 // const { shell, dialog } = require('electron')
 export default {
   name: 'IndexPage',
   data () {
     return {
       externalContent: '',
-      path: 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs',
+      path: '',
       folder: []
     }
   },
@@ -31,9 +30,11 @@ export default {
     async showFolder () {
       switch (process.platform) {
       case 'win32':
+        this.path = 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs'
         this.showFolderWin32()
         break
       default:
+        // eslint-disable-next-line no-case-declarations
         const notify = new Notification('Not Supported', {
           body: process.platform + ' is not supported'
         })
