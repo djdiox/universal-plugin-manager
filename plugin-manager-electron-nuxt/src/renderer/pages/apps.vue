@@ -31,7 +31,11 @@ export default {
       switch (process.platform) {
       case 'win32':
         this.path = 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs'
-        this.showFolderWin32()
+        await this.showFolderWin32('C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs')
+        break
+      case 'darwin':
+        this.path = '/Applications/'
+        await this.showFolderMacOS(this.path)
         break
       default:
         // eslint-disable-next-line no-case-declarations
@@ -59,36 +63,28 @@ export default {
         console(this.folder)
       }
     },
-    async showFolderWin32 () {
+    async showFolderMacOS () {
       // const result = await shell.openPath(folder)
       const dir = fs
         .readdirSync(this.path)
         .flatMap(file => {
-          const currentPath = this.path + '\\' + file
-          if (fs.statSync(currentPath).isDirectory()) {
-            return fs.readdirSync(currentPath).map(otherFile => {
-              return currentPath + '\\' + otherFile
-            })
-          }
-          return this.path + '\\' + file
+          // const currentPath = this.path + '/' + file
+          // if (fs.statSync(currentPath).isDirectory()) {
+          //   return fs.readdirSync(currentPath).map(otherFile => {
+          //     return currentPath + '/' + otherFile
+          //   })
+          // }
+          return this.path + '/' + file
         })
         .map(fullPath => {
           const fileName = path.basename(fullPath)
+          const stats = fs.statSync(fullPath)
           const res = {
             path: fullPath,
-            isLink: false,
-            attributes: null,
+            isLink: true,
+            attributes: stats,
             fileName,
             name: fileName.split('.')[0]
-          }
-          if (fullPath.endsWith('lnk')) {
-            try {
-              res.attributes = electron.shell.readShortcutLink(fullPath)
-              res.isLink = true
-            } catch (error) {
-              console.log('Can not read from ' + fullPath, error)
-              // console.error('Cannot read shortcut')
-            }
           }
           return res
         })
@@ -96,6 +92,43 @@ export default {
       this.folder = dir
       console.log(dir)
     }
+  },
+  async showFolderWin32 (path) {
+    // const result = await shell.openPath(folder)
+    const dir = fs
+      .readdirSync(this.path)
+      .flatMap(file => {
+        const currentPath = this.path + '\\' + file
+        if (fs.statSync(currentPath).isDirectory()) {
+          return fs.readdirSync(currentPath).map(otherFile => {
+            return currentPath + '\\' + otherFile
+          })
+        }
+        return this.path + '\\' + file
+      })
+      .map(fullPath => {
+        const fileName = path.basename(fullPath)
+        const res = {
+          path: fullPath,
+          isLink: false,
+          attributes: null,
+          fileName,
+          name: fileName.split('.')[0]
+        }
+        if (fullPath.endsWith('lnk')) {
+          try {
+            res.attributes = electron.shell.readShortcutLink(fullPath)
+            res.isLink = true
+          } catch (error) {
+            console.log('Can not read from ' + fullPath, error)
+            // console.error('Cannot read shortcut')
+          }
+        }
+        return res
+      })
+    // const res = await walk(this.folder)
+    this.folder = dir
+    console.log(dir)
   }
 }
 </script>
