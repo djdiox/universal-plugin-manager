@@ -20,11 +20,20 @@
 <script>
 import fs from 'fs'
 import path from 'path'
-import electron from 'electron'
+import crypto from 'crypto'
+import electron, { app } from 'electron'
 import * as uuid from 'uuid'
-// const { shell, dialog } = require('electron')
-// { path: fullPath, isLink: true, attributes: stats, fileName, name: fileName.split('.')[0] }
 
+// // import CrudController from '../../db/crud-controller'
+// import { Low, JSONFile } from 'lowdb';
+// const __dirname = dirname(fileURLToPath(import.meta.url)) // Use JSON file for storage
+// const file = join(__dirname, 'db.json')
+// const adapter = new JSONFile(file)
+// const db = new Low(adapter)
+
+// // const { shell, dialog } = require('electron')
+// // { path: fullPath, isLink: true, attributes: stats, fileName, name: fileName.split('.')[0] }
+// const controller = new CrudController()
 export default {
   name: 'IndexPage',
   data () {
@@ -40,7 +49,10 @@ export default {
       ]
     }
   },
-  mounted () {
+  async mounted () {
+    // const adapter = new JSONFile('db.json')
+    // const db = new Low(adapter)
+    // await db.read()
     this.showFolder()
   },
   methods: {
@@ -70,7 +82,7 @@ export default {
         //   message: process.platform + ' is not supported yet',
         //   type: 'error'
         // })
-        break
+        // fs.writeFileSync('./apps.json', JSON.stringify((this.folder, null, 2)))
       }
     },
     openURL (url) {
@@ -113,7 +125,13 @@ export default {
         .filter(app => app.fileName.endsWith('.app'))
 
       // const res = await walk(this.folder)
+      // this.folder = dir
+      // this.folder = this.folder.map(app => {
+      //   app.hash = crypto.createHash('md5').update(JSON.stringify(app)).digest('hex')
+      //   return app
+      // })
       this.folder = dir
+      fs.writeFileSync('./apps.json', JSON.stringify(this.folder, null, 2), 'utf-8')
       console.log(dir)
     }
   },
@@ -152,8 +170,13 @@ export default {
         return res
       })
     // const res = await walk(this.folder)
+
+    this.folder = this.folder.map(app => {
+      app.hash = crypto.createHash('md5').update(JSON.stringify(app)).digest('hex')
+      return app
+    })
     this.folder = dir
-    console.log(dir)
+    fs.writeFileSync('./apps.json', JSON.stringify(this.folder, null, 2), 'utf-8')
   }
 }
 </script>
