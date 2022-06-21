@@ -1,48 +1,53 @@
-import { Low, JSONFile } from 'lowdb'
+import fs from 'fs'
 import * as _ from 'lodash'
 import { App } from '../../types/apps'
 import { ICRUDController } from './plugin-db-adapter'
-type Data = {
-  apps: App[]
-}
-
-const adapter = new JSONFile<Data>('db.json')
-const db = new Low(adapter)
 
 export default class CrudController implements ICRUDController {
+  createOrUpdateMany (apps: App[]) {
+    const existingApps: App[] = JSON.parse(fs.readFileSync('./apps.json', 'utf-8'))
+    const newApps = existingApps.map((app: App) => {
+      const newApp = apps.find(newApp => app.id === newApp.id)
+      return newApp || app
+    })
+    fs.writeFileSync('./apps.json', JSON.stringify(newApps))
+  }
+
   async getById (id?: string): Promise<App> {
-    await db.read()
-    return _.find(db?.data?.apps, (app: App) => app.id === id)
+    const apps: App[] = JSON.parse(fs.readFileSync('./apps.json', 'utf-8'))
+    return _.find(apps, (app: App) => app.id === id)
   }
 
   async getAll (): Promise<Array<App>> {
-    await db.read()
-    return db?.data?.apps || []
+    const apps: App[] = JSON.parse(fs.readFileSync('./apps.json', 'utf-8'))
+    return apps || []
   }
 
   async create (body: App): Promise<Number> {
-    await db.read()
-    return db?.data?.apps.push(body) || 0
+    const apps: App[] = JSON.parse(fs.readFileSync('./apps.json', 'utf-8'))
+    const index = apps.push(body) || 0
+    fs.writeFileSync('./apps.json', JSON.stringify(apps))
+    return index
   }
 
   async update (data: App, id: string): Promise<App> {
-    const index = db?.data?.apps.findIndex(e => e.id === id) || -1
+    const apps: App[] = JSON.parse(fs.readFileSync('./apps.json', 'utf-8'))
+    const index = apps.findIndex(e => e.id === id) || -1
     if (index === -1) {
       throw new Error('Can not find app')
     }
-    const result = Object.assign(db?.data?.apps[index] || {}, data)
-    // db?.data?.apps[index] = result
-    await db.write()
+    const result = Object.assign(apps[index] || {}, data)
+    fs.writeFileSync('./apps.json', JSON.stringify(apps))
     return result
   }
 
   async delete (id: string): Promise<void> {
-    await db.read()
-    const index = db?.data?.apps.findIndex(e => e.id === id) || -1
+    const apps: App[] = JSON.parse(fs.readFileSync('./apps.json', 'utf-8'))
+    const index = apps.findIndex(e => e.id === id) || -1
     if (index === -1) {
       throw new Error('Can not find app')
     }
-    delete db?.data?.apps[index]
-    await db.write()
+    delete apps[index]
+    fs.writeFileSync('./apps.json', JSON.stringify(apps))
   }
 }

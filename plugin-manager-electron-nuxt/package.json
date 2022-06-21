@@ -27,6 +27,7 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "8.0.0",
     "@nuxtjs/vuetify": "^1.12.1",
+    "@types/node": "^18.0.0",
     "@xpda-dev/core": "^0.1.6",
     "@xpda-dev/electron-builder": "^0.2.1",
     "@xpda-dev/electron-launcher": "^0.3.0",
@@ -50,7 +51,6 @@
   "dependencies": {
     "electron-log": "^4.4.7",
     "lodash": "^4.17.21",
-    "lowdb": "^3.0.0",
     "uuid": "^8.3.2"
   }
 }
