@@ -10,7 +10,7 @@ export default class CrudController implements ICRUDController {
       const newApp = apps.find(newApp => app.id === newApp.id)
       return newApp || app
     })
-    fs.writeFileSync('./apps.json', JSON.stringify(apps))
+    fs.writeFileSync('./apps.json', JSON.stringify(newApps))
   }
 
   async getById (id?: string): Promise<App> {
