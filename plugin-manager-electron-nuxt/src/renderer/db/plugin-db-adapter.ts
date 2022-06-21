@@ -14,6 +14,7 @@ export class ActionResult {
 
 export interface ICRUDController {
   create: (body: App) => any
+  createOrUpdateMany: (apps: App[]) => any
   getById: (id?: string) => Promise<App>
   getAll: () => Promise<Array<App>>
   update: (data: any, id: string) => Promise<App>

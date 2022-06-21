@@ -21,10 +21,10 @@
 import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
-import electron, { app } from 'electron'
+import electron from 'electron'
 import * as uuid from 'uuid'
 
-// // import CrudController from '../../db/crud-controller'
+import CrudController from '../../db/crud-controller'
 // import { Low, JSONFile } from 'lowdb';
 // const __dirname = dirname(fileURLToPath(import.meta.url)) // Use JSON file for storage
 // const file = join(__dirname, 'db.json')
@@ -33,7 +33,7 @@ import * as uuid from 'uuid'
 
 // // const { shell, dialog } = require('electron')
 // // { path: fullPath, isLink: true, attributes: stats, fileName, name: fileName.split('.')[0] }
-// const controller = new CrudController()
+const controller = new CrudController()
 export default {
   name: 'IndexPage',
   data () {
@@ -50,10 +50,16 @@ export default {
     }
   },
   async mounted () {
-    // const adapter = new JSONFile('db.json')
-    // const db = new Low(adapter)
-    // await db.read()
-    this.showFolder()
+    try {
+      const apps = await controller.getAll()
+      console.log('Got Apps', apps)
+      this.folder = apps
+    } catch (error) {
+      console.error('Error while getting Apps')
+    }
+    if (!this.folder || this.folder.length === 0) {
+      this.showFolder()
+    }
   },
   methods: {
     handleClick (item) {
@@ -133,50 +139,50 @@ export default {
       this.folder = dir
       fs.writeFileSync('./apps.json', JSON.stringify(this.folder, null, 2), 'utf-8')
       console.log(dir)
-    }
-  },
-  async showFolderWin32 (path) {
-    // const result = await shell.openPath(folder)
-    const dir = fs
-      .readdirSync(this.path)
-      .flatMap(file => {
-        const currentPath = this.path + '\\' + file
-        if (fs.statSync(currentPath).isDirectory()) {
-          return fs.readdirSync(currentPath).map(otherFile => {
-            return currentPath + '\\' + otherFile
-          })
-        }
-        return this.path + '\\' + file
-      })
-      .map(fullPath => {
-        const fileName = path.basename(fullPath)
-        const res = {
-          path: fullPath,
-          id: uuid.v4(),
-          isLink: false,
-          attributes: null,
-          fileName,
-          name: fileName.split('.')[0]
-        }
-        if (fullPath.endsWith('lnk')) {
-          try {
-            res.attributes = electron.shell.readShortcutLink(fullPath)
-            res.isLink = true
-          } catch (error) {
-            console.log('Can not read from ' + fullPath, error)
-            // console.error('Cannot read shortcut')
+    },
+    async showFolderWin32 () {
+      // const result = await shell.openPath(folder)
+      const dir = fs
+        .readdirSync(this.path)
+        .flatMap(file => {
+          const currentPath = this.path + '\\' + file
+          if (fs.statSync(currentPath).isDirectory()) {
+            return fs.readdirSync(currentPath).map(otherFile => {
+              return currentPath + '\\' + otherFile
+            })
           }
-        }
-        return res
-      })
-    // const res = await walk(this.folder)
+          return this.path + '\\' + file
+        })
+        .map(fullPath => {
+          const fileName = path.basename(fullPath)
+          const res = {
+            path: fullPath,
+            id: uuid.v4(),
+            isLink: false,
+            attributes: null,
+            fileName,
+            name: fileName.split('.')[0]
+          }
+          if (fullPath.endsWith('lnk')) {
+            try {
+              res.attributes = electron.shell.readShortcutLink(fullPath)
+              res.isLink = true
+            } catch (error) {
+              console.log('Can not read from ' + fullPath, error)
+              // console.error('Cannot read shortcut')
+            }
+          }
+          return res
+        })
+      // const res = await walk(this.folder)
 
-    this.folder = this.folder.map(app => {
-      app.hash = crypto.createHash('md5').update(JSON.stringify(app)).digest('hex')
-      return app
-    })
-    this.folder = dir
-    fs.writeFileSync('./apps.json', JSON.stringify(this.folder, null, 2), 'utf-8')
+      this.folder = this.folder.map(app => {
+        app.hash = crypto.createHash('md5').update(JSON.stringify(app)).digest('hex')
+        return app
+      })
+      this.folder = dir
+      fs.writeFileSync('./apps.json', JSON.stringify(this.folder, null, 2), 'utf-8')
+    }
   }
 }
 </script>
