@@ -37,19 +37,19 @@
 
       <v-divider /> -->
 
-      <v-list flat subheader three-line>
+      <v-list flat subheader two-line>
         <v-subheader>Linked Applications</v-subheader>
 
         <v-list-item-group v-model="settings" multiple active-class="">
           <v-list-item>
-            <template #default="{ }">
+            <template #default="{}">
               <!-- <v-list-item-action>
                 <v-checkbox :input-value="active" />
               </v-list-item-action> -->
 
               <v-list-item-content>
-                <v-list-item-title>Todoist</v-list-item-title>
-                <v-list>
+                <v-list-item-title>Tasks</v-list-item-title>
+                <!-- <v-list two-line subheader>
                   <v-list-item v-for="task in tasks" :key="task.content">
                     <v-list-item-action>
                       <v-checkbox :input-value="task.completed" />
@@ -60,7 +60,33 @@
                       <v-list-item-subtitle>{{ task.description }}</v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
-                </v-list>
+                </v-list> -->
+                <v-list-group :value="true" no-action sub-group>
+                  <template #activator>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        by <a href="#" @click="openUrl('www.todoist.com')">Todoist</a>
+                      </v-list-item-title>
+                      <v-list-item-subtitle>
+                        <a href="#" @click="openUrl('https://todoist.com/downloads')">Free Download</a> available
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </template>
+
+                  <v-list-item v-for="(task, i) in tasks" :key="i" link>
+                    <v-list-item-action>
+                      <v-checkbox :input-value="task.completed" />
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <!-- <v-list-item-title v-text="'Task #' + i + ': ' + task.content" /> -->
+                      <v-list-item-title v-text="'Task #' + i" />
+                      <v-list-item-subtitle v-text="task.content" />
+                    </v-list-item-content>
+                    <!-- <v-list-item-icon>
+                      <v-icon v-text="'mdi-tag'" />
+                    </v-list-item-icon> -->
+                  </v-list-item>
+                </v-list-group>
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -72,8 +98,8 @@
               </v-list-item-action>
 
               <v-list-item-content>
-                <v-list-item-title>Sound</v-list-item-title>
-                <v-list-item-subtitle>Auto-update apps at any time. Data charges may apply</v-list-item-subtitle>
+                <v-list-item-title><a @click="openUrl('www.notion.so')"> Notion</a></v-list-item-title>
+                <v-list-item-subtitle>Very famous Todo & Confluence + Calendar Tool</v-list-item-subtitle>
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -100,6 +126,8 @@
 
 <script>
 import todoist from '~/api/todoist'
+const { shell } = require('electron')
+
 export default {
   data: () => ({
     tasks: [],
@@ -126,6 +154,11 @@ export default {
       return t
     })
     console.log(this.tasks)
+  },
+  methods: {
+    async openUrl (link) {
+      await shell.openExternal(link)
+    }
   }
 }
 </script>
