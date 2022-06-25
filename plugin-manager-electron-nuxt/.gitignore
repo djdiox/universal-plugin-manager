@@ -3,3 +3,6 @@ dist
 build/*
 !build/icons
 node_modules
+*.key
+*.crt
+*.pem
