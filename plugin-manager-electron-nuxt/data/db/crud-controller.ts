@@ -1,6 +1,6 @@
 import fs from 'fs'
-import * as _ from 'lodash'
-import { App } from '../../types/apps'
+import _ from 'lodash'
+import { App } from '../../src/types/apps'
 import { ICRUDController } from './plugin-db-adapter'
 
 export default class CrudController implements ICRUDController {
@@ -15,7 +15,7 @@ export default class CrudController implements ICRUDController {
 
   async getById (id?: string): Promise<App> {
     const apps: App[] = JSON.parse(fs.readFileSync('./apps.json', 'utf-8'))
-    return _.find(apps, (app: App) => app.id === id)
+    return _.find(apps, (app: App) => app.id === id) || { id: _.uniqueId() }
   }
 
   async getAll (): Promise<Array<App>> {

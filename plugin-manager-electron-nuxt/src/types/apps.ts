@@ -25,11 +25,11 @@ export interface Request {
 
 export interface App {
   id: string
-  name: string
-  api_kind: string
-  website: string
-  plugin_page: string
-  request: Request
-  file: string
+  name?: string
+  api_kind?: string
+  website?: string
+  plugin_page?: string
+  request?: Request
+  file?: string
   packageManagers?: PackageManager[]
 }

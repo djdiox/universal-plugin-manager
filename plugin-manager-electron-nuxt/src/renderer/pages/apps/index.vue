@@ -24,7 +24,7 @@ import crypto from 'crypto'
 import electron from 'electron'
 import * as uuid from 'uuid'
 
-import CrudController from '../../db/crud-controller'
+// import CrudController from '../../db/crud-controller'
 // import { Low, JSONFile } from 'lowdb';
 // const __dirname = dirname(fileURLToPath(import.meta.url)) // Use JSON file for storage
 // const file = join(__dirname, 'db.json')
@@ -33,7 +33,7 @@ import CrudController from '../../db/crud-controller'
 
 // // const { shell, dialog } = require('electron')
 // // { path: fullPath, isLink: true, attributes: stats, fileName, name: fileName.split('.')[0] }
-const controller = new CrudController()
+// const controller = new CrudController()
 export default {
   name: 'IndexPage',
   data () {
