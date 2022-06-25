@@ -14,6 +14,7 @@
     "allowJs": true,
     "sourceMap": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {

@@ -12,3 +12,5 @@ thumbs.db
 .electron-vue/
 .env
 *protected.json
+.nova/
+yarn-error.log

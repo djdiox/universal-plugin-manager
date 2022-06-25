@@ -19,7 +19,7 @@ module.exports = {
     curly: ['error', 'multi-line'],
     'import/no-extraneous-dependencies': 'off',
     'require-await': 0,
-
+    'vue/multi-word-component-names': 0,
     'global-require': 0,
     'import/no-unresolved': 0,
     'import/newline-after-import': 0,
