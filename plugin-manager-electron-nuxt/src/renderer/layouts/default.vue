@@ -3,13 +3,9 @@
     <v-navigation-drawer app>
       <!-- -->
     </v-navigation-drawer>
+    <system-bar style="display: flex; width: 100%" />
 
-    <v-app-bar app>
-      <!-- -->
-
-      <app-header />
-    </v-app-bar>
-
+    <app-header style="display:flex;width:100%" />
     <!-- Sizes your content based upon application components -->
     <v-main>
       <!-- Provides the application the proper gutter -->
@@ -28,10 +24,11 @@
 
 <script>
 import appHeader from '@/components/header'
+import SystemBar from '@/components/SystemBar.vue'
 
 export default {
   name: 'DefaultLayout',
-  components: { appHeader }
+  components: { appHeader, SystemBar }
 }
 </script>
 
