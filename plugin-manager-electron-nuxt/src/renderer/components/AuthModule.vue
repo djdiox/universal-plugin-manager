@@ -9,7 +9,7 @@ export default {
   mounted () {
     console.log(this.$auth)
     if (!this.$auth.loggedIn) {
-      this.$auth.loginWith('auth0')
+      // this.$auth.loginWith('auth0')
     } else {
       console.log('already logged')
     }

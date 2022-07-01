@@ -21,6 +21,17 @@ module.exports = {
   router: {
     middleware: ['auth'] // @nuxt/auth module
   },
+  https: true,
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': 'http://localhost:3000',
+    '/backend': {
+      target: 'https://laravel-auth.nuxtjs.app',
+      pathRewrite: { '^/backend': '/' }
+    }
+  },
   // server: {
   //   https: {
   //     key: path.join(__dirname, './localhost.key'),
