@@ -1,4 +1,4 @@
-import BrowserWinHandler from './BrowserWinHandler'
+import BrowserWinHandler from '../main/BrowserWinHandler'
 const winHandler = new BrowserWinHandler({
   height: 600,
   width: 1000

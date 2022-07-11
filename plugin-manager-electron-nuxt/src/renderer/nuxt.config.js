@@ -1,5 +1,5 @@
-// const path = require('path')
-// const fs = require('fs')
+const path = require('path')
+const fs = require('fs')
 /**
  * By default, Nuxt.js is configured to cover most use cases.
  * This default configuration can be overwritten in this file
@@ -21,21 +21,21 @@ module.exports = {
   router: {
     middleware: ['auth'] // @nuxt/auth module
   },
-  https: true,
+  https: process.NODE_ENV === 'production',
   axios: {
     proxy: true
   },
   proxy: {
-    '/api': 'http://localhost:3000',
+    '/api': 'https://localhost:3000',
     '/backend': {
-      target: 'https://laravel-auth.nuxtjs.app',
+      target: 'https://djdiox.de/',
       pathRewrite: { '^/backend': '/' }
     }
   },
   // server: {
   //   https: {
-  //     key: path.join(__dirname, './localhost.key'),
-  //     cert: path.join(__dirname, './localhost.crt')
+  //     key: fs.readFileSync(path.resolve(__dirname, 'private.key'), 'utf-8'),
+  //     cert: fs.readFileSync(path.resolve(__dirname, 'certificate.crt'), 'utf-8')
   //   }
   // },
   auth: {

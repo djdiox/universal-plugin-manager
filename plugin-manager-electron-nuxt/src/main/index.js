@@ -18,7 +18,7 @@ if (!gotTheLock) {
 
   // Create myWindow, load the rest of the app, etc...
   app.on('ready', () => {
-    myWindow = require('./mainWindow').default
+    myWindow = require('../renderer/mainWindow').default
   })
   app.on('window-all-closed', function () {
     // On macOS it is common for applications and their menu bar
