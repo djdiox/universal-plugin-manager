@@ -4,7 +4,7 @@
   "description": "An electron-nuxt project",
   "main": "./dist/main/index.js",
   "scripts": {
-    "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && node .electron-nuxt/dev.js",
+    "dev": "node .electron-nuxt/dev.js",
     "build": "node .electron-nuxt/build.js",
     "build:mac": "PYTHON_PATH=$(which python) yarn build",
     "lint": "node_modules/.bin/eslint --ext .js,.vue,.ts -f ./node_modules/eslint-friendly-formatter ./src",
