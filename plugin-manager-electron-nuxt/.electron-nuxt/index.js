@@ -14,7 +14,17 @@ const NuxtApp = require('./renderer/NuxtApp')
 const isDev = process.env.NODE_ENV === 'development'
 
 const electronLogger = new Logger('Electron', 'teal')
+process.on('uncaughtException', function (err) {
+  // Handle the error safely
+  console.error(err)
+  electronLogger.error('Error!:  ' + err.message)
+})
+
 electronLogger.ignore(text => text.includes('nhdogjmejiglipccpnnnanhbledajbpd')) // Clear vue devtools errors
+
+// unhandled.logError(Error, {
+//   title: 'Title of the Box'
+// })
 
 const launcher = new ElectronLauncher({
   logger: electronLogger,

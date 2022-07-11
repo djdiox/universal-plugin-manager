@@ -69,6 +69,7 @@ export default {
     performAction (action) {
       switch (action) {
       case 'Login':
+        console.log('Logging in')
         this.$router.push('/login')
         break
       case 'home':
